@@ -10,7 +10,6 @@ LABEL Verdor="Ghostcloud" \
 RUN echo "http://mirrors.ustc.edu.cn/alpine/latest-stable/main/" > /etc/apk/repositories
 RUN apk add --update apache2 php5 php5-apache2 openrc php5-mysql php5-gd php5-ldap php5-json php5-xml php5-opcache php5-pdo_mysql php5-pdo\
     && mkdir -p /var/run/apache2 \
-    && mkdir -p /var/www/bugfree \
     && rm -rf /var/cache/apk/*
 
 RUN sed -i 's!DocumentRoot "/var/www/localhost/htdocs"!DocumentRoot "/var/www/bugfree"!' /etc/apache2/httpd.conf \
@@ -19,6 +18,11 @@ RUN sed -i 's!DocumentRoot "/var/www/localhost/htdocs"!DocumentRoot "/var/www/bu
     && sed  -i 's/index.html/index.php/' /etc/apache2/httpd.conf \
     && sed  -i 's/User apache/#User apache/;s/Group apache/#Group apache/' /etc/apache2/httpd.conf \
     && echo "ServerName localhost" >> /etc/apache2/httpd.conf
+    
+RUN mkdir -p /var/www/bugfree \
+    && mkdir -p /var/www/BugFile \
+    && mkdir -p /var/www/bugfree/assets \
+    && mkdir -p /var/www/bugfree/protected/runtime
 
 COPY . /var/www/bugfree
 COPY entrypoint.sh /entrypoint.sh

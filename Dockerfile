@@ -20,7 +20,7 @@ RUN sed -i 's!DocumentRoot "/var/www/localhost/htdocs"!DocumentRoot "/var/www/bu
     && sed  -i 's/User apache/#User apache/;s/Group apache/#Group apache/' /etc/apache2/httpd.conf \
     && echo "ServerName localhost" >> /etc/apache2/httpd.conf
 
-COPY . /var/www/bugfree -r
+COPY . /var/www/bugfree
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
